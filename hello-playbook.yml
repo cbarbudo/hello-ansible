@@ -1,0 +1,29 @@
+---
+- name: 1st PB
+  hosts: all
+  become: true
+  tasks:
+    - name: Apache
+      ansible.builtin.apt:
+        name: apache2
+        state: present
+    - name: Start apache
+      ansible.builtin.service:
+        name: apache2
+        state: started
+        enabled: true
+    - name: Change HTML template
+      ansible.builtin.template:
+        src: templates/test.j2
+        dest: /var/www/html/index.html
+        owner: root
+        group: root
+        mode: '0644'
+    - name: mariadb
+      ansible.builtin.apt:
+        name: mariadb-server
+        state: present
+    - name: htop
+      ansible.builtin.apt:
+        name: htop
+        state: absent
