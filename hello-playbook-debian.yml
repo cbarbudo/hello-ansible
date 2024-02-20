@@ -6,6 +6,7 @@
     - name: Apache
       ansible.builtin.apt:
         name: apache2
+        update_cache: true
         state: present
     - name: Start apache
       ansible.builtin.service:

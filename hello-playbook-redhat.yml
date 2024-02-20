@@ -4,14 +4,18 @@
   become: true
   tasks:
     - name: Apache
-      ansible.builtin.apt:
-        name: apache2
+      ansible.builtin.yum:
+        name: httpd
         state: present
     - name: Start apache
       ansible.builtin.service:
-        name: apache2
+        name: httpd
         state: started
         enabled: true
+    - name: Install unzip
+      ansible.builtin.yum:
+        name: unzip
+        state: present 
     - name: Unzip
       ansible.builtin.unarchive:
         src: /home/tux/Downloads/2048.zip
@@ -19,10 +23,10 @@
         owner: root
         group: root
     - name: mariadb
-      ansible.builtin.apt:
+      ansible.builtin.yum:
         name: mariadb-server
         state: present
     - name: htop
-      ansible.builtin.apt:
+      ansible.builtin.yum:
         name: htop
         state: absent
